@@ -3,7 +3,8 @@ import { useState } from "react";
 function Home() {
 
     const recipe = {name: "Frikadellington", keywords: ["Keilekker", "Frikadelbroodje"]}
-    const [recipes, setRecipes] = useState([recipe]);
+    const recipe2 = {name: "Pizza banaan", keywords: ["Gadverdamme", "Nog erger dan Hawaii"]}
+    const [recipes, setRecipes] = useState([recipe, recipe2]);
 
     //TODO: get recipes from database
 
