@@ -13,7 +13,7 @@ function Home() {
             <li>
                 {recipe.name} - {(recipe.keywords).map(keyword => {
                     console.log(keyword);
-                    return (keyword) + ", ";
+                    return keyword + ", ";
                 })}
             </li>
     )});
