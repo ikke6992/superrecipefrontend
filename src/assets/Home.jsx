@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function Home() {
 
-    const recipe = {name: "Frikadellington", keywords: ["Keilekker", "Frikadelbroodje"]}
+    const recipe = {name: "Frikandellington", keywords: ["Keilekker", "Frikandelbroodje"]}
     const recipe2 = {name: "Pizza banaan", keywords: ["Gadverdamme", "Nog erger dan Hawaii"]}
     const [recipes, setRecipes] = useState([recipe, recipe2]);
 
