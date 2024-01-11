@@ -1,10 +1,22 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function Home() {
 
     const recipe = {name: "Frikandellington", keywords: ["Keilekker", "Frikandelbroodje"]}
     const recipe2 = {name: "Pizza banaan", keywords: ["Gadverdamme", "Nog erger dan Hawaii"]}
-    const [recipes, setRecipes] = useState([recipe, recipe2]);
+    const [recipes, setRecipes] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            const getRecipes = await axios.get("http://localhost:8080/api/recipes/");
+            console.log(getRecipes.data);
+            setRecipes(getRecipes.data);
+        };
+
+        fetchData();
+    }, [])
 
     //TODO: get recipes from database
 
