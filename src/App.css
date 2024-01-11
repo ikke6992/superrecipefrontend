@@ -40,3 +40,16 @@
 .read-the-docs {
   color: #888;
 }
+
+.h-5 {
+  height: 1.25rem/* 20px */;
+}
+
+.text-center {
+  vertical-align: top;
+}
+
+.text-sm {
+  font-size: 0.8rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+}
