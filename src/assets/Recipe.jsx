@@ -23,10 +23,11 @@ function Recipe(props) {
 
     if (recipe !== undefined) {
         const ingredients = (recipe.ingredients).map(recipeIngredient => {
+            console.log(recipeIngredient);
             index++;
             return (
                 <li key={index}>
-                    {recipeIngredient.amount} {recipeIngredient.ingredient.unit} {recipeIngredient.ingredient.name}
+                    {recipeIngredient.amountInUnits} {recipeIngredient.ingredient.name}
                 </li>
             )
 
