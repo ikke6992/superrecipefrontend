@@ -47,7 +47,7 @@ function App() {
         <input type='text' onChange={e => { setSearch(e.target.value) }} /> <br />
         <button type='submit'>Submit</button>
       </form>
-      <h1>Super Recipes</h1>
+      <h1><img src="/garlic-svgrepo-com.svg" alt="Could not load image" width={75}  />Super Recipes</h1>
       <Home />
     </>
 
