@@ -1,73 +1,62 @@
 import { useContext, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { StateContext } from './assets/StateContext'
 import Home from './assets/Home'
 import Recipe from './assets/Recipe'
+import axios from 'axios';
 
 function App() {
-  const [count, setCount] = useState(0)
   const {state} = useContext(StateContext)
+  const [search, setSearch] = useState('');
+  const fetchDat = async () => {
+    const res = await
+      axios.get("http://localhost:8080/api/recipes/search")
+    console.log(res.data.sort((a, b) => {
+      const distanceA = levenshteinDistance(a, search);
+      const distanceB = levenshteinDistance(b, search);
+      return distanceA - distanceB;
+    }));
+  }
+
+  function levenshteinDistance(str1, str2) {
+    const m = str1.length;
+    const n = str2.length;
+
+    const dp = Array.from({ length: m + 1 }, () =>
+      Array(n + 1).fill(0));
+      
+    for (let i = 0; i <= m; i++) {
+      for (let j = 0; j <= n; j++) {
+        if (i === 0) {
+          dp[i][j] = j;
+        } else if (j === 0) {
+          dp[i][j] = i;
+        } else {
+          const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
+          dp[i][j] = Math.min(
+            dp[i - 1][j] + 1,
+            dp[i][j - 1] + 1,
+            dp[i - 1][j - 1] + cost
+          );
+        }
+      }
+    }
+    return dp[m][n];
+  }
 
   return (
     <>
-     <div className="mb-3 xl:w-96">
-          <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-              <input
-                  type="search"
-                  className="relative m-0 block flex-auto rounded border border-solid border-neutral-300 bg-transparent text-center bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                  placeholder="Please enter a recipe"
-                  aria-label="Search"
-                  aria-describedby="button-addon2" />
-
-              {/* <!--Search icon--> */}
-              <span
-                  className="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200"
-                  id="basic-addon2">
-                  <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox=" 0 0 20 20"
-                      fill="currentColor"
-                      className="h-5 w-5">
-                      <path
-                          fillRule="evenodd"
-                          d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                          clipRule="evenodd" />
-                  </svg>
-              </span>
-          </div>
-
-      </div>
+      <form onSubmit={e => { e.preventDefault(); fetchDat(); }}>
+        <input type='text' onChange={e => { setSearch(e.target.value) }} /> <br />
+        <button type='submit'>Submit</button>
+      </form>
       <h1>Super Recipes</h1>
       <div>
         {state === "home" && <Home />}
         {state !== "home" && <Recipe recipeName={state} depend={0} />}
       </div>
-      
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      
     </>
-    
+
   )
 }
 

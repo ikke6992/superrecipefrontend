@@ -19,11 +19,13 @@ function Recipe(props) {
 
         fetchData();
     }, [props.depend])
+    let index=0;
 
     if (recipe !== undefined) {
         const ingredients = (recipe.ingredients).map(recipeIngredient => {
+            index++;
             return (
-                <li>
+                <li key={index}>
                     {recipeIngredient.amount} {recipeIngredient.ingredient.unit} {recipeIngredient.ingredient.name}
                 </li>
             )
