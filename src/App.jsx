@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { StateContext } from './assets/StateContext'
 import Home from './assets/Home'
 import Recipe from './assets/Recipe'
 
 function App() {
   const [count, setCount] = useState(0)
+  const {state} = useContext(StateContext)
 
   return (
     <>
@@ -38,7 +40,11 @@ function App() {
 
       </div>
       <h1>Super Recipes</h1>
-      <Home />
+      <div>
+        {state === "home" && <Home />}
+        {state !== "home" && <Recipe recipeName={state} depend={0} />}
+      </div>
+      
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

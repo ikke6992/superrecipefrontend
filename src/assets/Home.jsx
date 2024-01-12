@@ -1,32 +1,32 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { StateContext } from "./StateContext";
 
 function Home() {
 
-    const recipe = {name: "Frikandellington", keywords: ["Keilekker", "Frikandelbroodje"]}
-    const recipe2 = {name: "Pizza banaan", keywords: ["Gadverdamme", "Nog erger dan Hawaii"]}
+    const {setState} = useContext(StateContext);
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
 
             const getRecipes = await axios.get("http://localhost:8080/api/recipes/");
-            console.log(getRecipes.data);
             setRecipes(getRecipes.data);
         };
 
         fetchData();
     }, [])
 
-    //TODO: get recipes from database
+    let index = 0;
 
-    const basicInfo = recipes.map(recipe => {
+    const basicInfo = recipes.map((recipe) => {
+        index++;
         return (
-            <li>
-                {recipe.name} - {(recipe.keywords).map(keyword => {
-                    console.log(keyword);
-                    return keyword + ", ";
-                })}
+            <li key={index}>
+                <button onClick={(e) => {
+                    e.preventDefault();
+                    setState(recipe.name);
+                }}>{recipe.name}</button> - {recipe.keywords.replaceAll(",", ", ")}
             </li>
     )});
 
