@@ -33,10 +33,11 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-img {
-    margin-right: 25px;
-    al
-  }
+  display:flex;
+  place-items: center;
+  img {
+      margin-right: 25px;
+    }
 }
 
 button {

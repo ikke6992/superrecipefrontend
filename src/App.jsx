@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './App.css'
+import { StateContext } from './assets/StateContext'
 import Home from './assets/Home'
+import Recipe from './assets/Recipe'
 import axios from 'axios';
 
 function App() {
+  const {state} = useContext(StateContext)
   const [search, setSearch] = useState('');
   const fetchDat = async () => {
     const res = await
@@ -48,7 +51,10 @@ function App() {
         <button type='submit'>Submit</button>
       </form>
       <h1><img src="/garlic-svgrepo-com.svg" alt="Could not load image" width={75}  />Super Recipes</h1>
-      <Home />
+      <div>
+        {state === "home" && <Home />}
+        {state !== "home" && <Recipe recipeName={state} />}
+      </div>
     </>
 
   )
