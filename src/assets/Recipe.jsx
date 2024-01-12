@@ -18,7 +18,7 @@ function Recipe(props) {
         };
 
         fetchData();
-    }, [props.depend])
+    }, [])
     let index=0;
 
     if (recipe !== undefined) {

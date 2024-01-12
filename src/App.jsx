@@ -53,7 +53,7 @@ function App() {
       <h1>Super Recipes</h1>
       <div>
         {state === "home" && <Home />}
-        {state !== "home" && <Recipe recipeName={state} depend={0} />}
+        {state !== "home" && <Recipe recipeName={state} />}
       </div>
     </>
 
