@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 
-const StateContext = createContext("home");
+export const StateContext = createContext("home");
 
-const StateProvider = ({children}) => {
+export const StateProvider = ({children}) => {
     const [state, setState] = useState("home");
 
     return (
@@ -11,5 +11,3 @@ const StateProvider = ({children}) => {
         </StateContext.Provider>
     )  
 }
-
-export {StateProvider, StateContext};

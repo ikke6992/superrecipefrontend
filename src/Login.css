@@ -1,0 +1,15 @@
+#login-form {
+    width: 400px;
+    border: 1pt solid grey;
+    border-radius: 8px;
+    padding: 0 2rem;
+}
+#login-form input {
+    font-size: 1.25rem;
+    padding: 2px 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+.right {
+    text-align: right;
+}
