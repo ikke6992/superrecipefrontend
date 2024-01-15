@@ -6,7 +6,7 @@ import Recipe from './assets/Recipe'
 import axios from 'axios';
 
 function App() {
-  const {state} = useContext(StateContext)
+  const { state } = useContext(StateContext)
   const [search, setSearch] = useState('');
   const fetchDat = async () => {
     const res = await
@@ -24,7 +24,7 @@ function App() {
 
     const dp = Array.from({ length: m + 1 }, () =>
       Array(n + 1).fill(0));
-      
+
     for (let i = 0; i <= m; i++) {
       for (let j = 0; j <= n; j++) {
         if (i === 0) {
@@ -46,11 +46,14 @@ function App() {
 
   return (
     <>
-      <form onSubmit={e => { e.preventDefault(); fetchDat(); }}>
-        <input type='text' onChange={e => { setSearch(e.target.value) }} /> <br />
-        <button type='submit'>Submit</button>
-      </form>
-      <h1><img src="/garlic-svgrepo-com.svg" alt="Could not load image" width={75}  />Super Recipes</h1>
+      <header>
+        <img className='banner' src="/garlic-svgrepo-com.svg" alt="Could not load image" width={75} />
+        <h1>Super Recipes</h1>
+        <form className='searchform' onSubmit={e => { e.preventDefault(); fetchDat(); }}>
+          <input type='text' onChange={e => { setSearch(e.target.value) }} /> <br />
+          <button className='searchbutton' type='submit'>Submit</button>
+        </form>
+      </header>
       <div>
         {state === "home" && <Home />}
         {state !== "home" && <Recipe recipeName={state} />}
