@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { Cookies } from "react-cookie";
 import "../Login.css";
 import axios from "axios";
 
+const cookies = new Cookies(document.cookie);
 export default function Login() {
     async function handleSubmit(e) {
         e.preventDefault();
         let jsonObject = Object.fromEntries(new FormData(e.target).entries()); 
-        let result = axios.post("http://localhost:8080/api/user/login", jsonObject);
+        let result = await axios.post("http://localhost:8080/api/user/login", jsonObject);
+        cookies.set("Api-Login", result.data.token);
+        location.assign("/");
     }
     return (<div id="context-login-wrapper">
         <form id="login-form" onSubmit={handleSubmit}>
-            <h1 id="form-header">Inloggen</h1>
+            <h2 id="form-header">Inloggen</h2>
             <p>
                 <input type="text" name="username" id="username" placeholder="Gebruikersnaam" />
             </p>
