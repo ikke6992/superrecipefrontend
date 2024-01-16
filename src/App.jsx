@@ -47,17 +47,18 @@ function App() {
   return (
     <>
       <header>
-        <img className='banner' src="/garlic-svgrepo-com.svg" alt="Could not load image" width={75} />
+        <img className='garlic' src="/garlic-svgrepo-com.svg" alt="Could not load image" width={75} />
         <h1>Super Recipes</h1>
         <form className='searchform' onSubmit={e => { e.preventDefault(); fetchDat(); }}>
           <input type='text' onChange={e => { setSearch(e.target.value) }} /> <br />
           <button className='searchbutton' type='submit'>Submit</button>
         </form>
       </header>
-      <div>
+      <article className='menu'>
+        
         {state === "home" && <Home />}
         {state !== "home" && <Recipe recipeName={state} />}
-      </div>
+      </article>
     </>
 
   )
