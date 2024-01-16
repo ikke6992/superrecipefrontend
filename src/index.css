@@ -32,34 +32,26 @@ body {
 }
 
  h1 {
-  position: relative;
-  left: 40%;
-  bottom: 20%;
   font-size: 4em;
   line-height: 1.1;
-  
   width: 550px;
 } 
 
 .garlic {
-  position: relative;
-  right: 11%;
-  top: 27%;
-
+  margin-left: auto;
 }
 
 .searchform {
-  border-radius: 15px;
-  position: relative;
-  width: 300px;
-  left: 90%;
-  bottom: 50%;
+  margin-left: 26%;
+  display: flex;
 }
 
 .menu {
-
-  border-image: url(/public/ChefKnife.png) 50 repeat;
-  border-image-width: thick;
+  border-style: solid;
+  border-width: 5px;
+ 
+  
+  
 }
 
 .anderebutton {
@@ -97,6 +89,9 @@ button:focus-visible {
 }
 
  header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-radius: 15px 15px 15px 15px;
   background-color: #BF3131;
   font-family: vanessa, arial, sans-serif;
