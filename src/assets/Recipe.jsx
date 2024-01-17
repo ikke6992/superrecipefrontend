@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { StateContext } from "./StateContext";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-function Recipe(props) {
+export default function Recipe(props) {
 
+    const {recipeName} = useParams();
     const [recipe, setRecipe] = useState();
     const {setState} = useContext(StateContext);
 
@@ -13,15 +15,15 @@ function Recipe(props) {
             const getRecipes = await axios.get("http://localhost:8080/api/recipes/");
 
             getRecipes.data.forEach((getRecipe) => {
-                getRecipe.name == props.recipeName ? setRecipe(getRecipe) : '';
+                getRecipe.name == props.recipeName ? setRecipe(getRecipe) : "";
             })
         };
 
         fetchData();
-    }, [])
+    }, []);
     let index=0;
 
-    if (recipe !== undefined) {
+    if (recipe) {
         const ingredients = (recipe.ingredients).map(recipeIngredient => {
             console.log(recipeIngredient);
             index++;
@@ -62,5 +64,3 @@ function Recipe(props) {
     }
 
 }
-
-export default Recipe;
