@@ -4,6 +4,7 @@ import { StateContext } from './assets/StateContext'
 import Home from './assets/Home'
 import Recipe from './assets/Recipe'
 import axios from 'axios';
+import SelectionMenu from './assets/SelectionMenu'
 
 function App() {
   const {state} = useContext(StateContext)
@@ -55,6 +56,7 @@ function App() {
         {state === "home" && <Home />}
         {state !== "home" && <Recipe recipeName={state} />}
       </div>
+      <SelectionMenu />
     </>
 
   )
