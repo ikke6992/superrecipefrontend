@@ -21,12 +21,10 @@ export default function Home() {
 
     const basicInfo = recipes.map((recipe) => {
         index++;
+        const link = `/recipe/${recipe.name}`;
         return (
             <li key={index}>
-                <button onClick={(e) => {
-                    e.preventDefault();
-                    setState(recipe.name);
-                }}>{recipe.name}</button> - {recipe.keywords.join(", ")}
+                <a href={link}>{recipe.name}</a> - {recipe.keywords.replaceAll(",", ", ")}
             </li>
     )});
 

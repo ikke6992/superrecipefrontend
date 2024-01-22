@@ -9,13 +9,15 @@ export default function Recipe(props) {
     const [recipe, setRecipe] = useState();
     const {setState} = useContext(StateContext);
 
+    console.log(recipeName);
+
     useEffect(() => {
         const fetchData = async () => {
 
             const getRecipes = await axios.get("http://localhost:8080/api/recipes/");
 
             getRecipes.data.forEach((getRecipe) => {
-                getRecipe.name == props.recipeName ? setRecipe(getRecipe) : "";
+                getRecipe.name == recipeName ? setRecipe(getRecipe) : "";
             })
         };
 
@@ -37,10 +39,7 @@ export default function Recipe(props) {
 
         return (
             <>
-                <button onClick={(e) => {
-                        e.preventDefault();
-                        setState("home");
-                    }}>Home</button>
+                <a href="/">Home</a>
                 <h2>{recipe.name}</h2>
                 <p>{recipe.keywords.replaceAll(",", " - ")}</p>
                 <br/>
@@ -56,10 +55,7 @@ export default function Recipe(props) {
         );
     } else {
         return (
-            <button onClick={(e) => {
-                e.preventDefault();
-                setState("home");
-            }}>Home</button>
+            <a href="/">Home</a>
         )
     }
 
