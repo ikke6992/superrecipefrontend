@@ -5,40 +5,46 @@ import SelectionResults from "./SelectionResults";
 function SelectionMenu() {
 
     const [keywords, setKeywords] = useState([]);
-    const [isChecked, setIsChecked] = useState(false);
-    
     const [displayForm, setDisplayForm] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
 
             const getKeywords = await axios.get("http://localhost:8080/api/keywords/");
-            setKeywords(getKeywords.data);
+            setKeywords(getKeywords.data.map(keyword => {
+                return (
+                    {name: keyword, checked: false}
+                )
+            }))
+
         };
 
         fetchData();
     }, [])
 
-    const checkHandler = () => {
-        setIsChecked(!isChecked);
-    }
-
-    let index = 0;
-
-    const keywordChecklist = keywords.map((keyword) => {
-        index++;
+    const Checkbox = ({ isChecked, label, checkHandler, index }) => {
         return (
-            <div key={index}>
-                <input 
-                    id={`checkbox-${index}`} 
-                    type="checkbox" 
-                    checked={isChecked} 
-                    onChange={checkHandler} 
+            <div>
+                <input
+                    type="checkbox"
+                    id={`checkbox-${index}`}
+                    checked={isChecked}
+                    onChange={checkHandler}
                 />
-                <label htmlFor={`checkbox-${index}`}>{keyword}</label>
+                <label htmlFor={`checkbox-${index}`}>{label}</label>
             </div>
         )
-    });
+    }
+
+    const updateCheckStatus = index => {
+        setKeywords(
+            keywords.map((keyword, currentIndex) => 
+                currentIndex === index
+                    ? {...keyword, checked: !keyword.checked }
+                    : keyword
+            )
+        )
+    }
 
     return (
         <>
@@ -46,11 +52,21 @@ function SelectionMenu() {
                 e.preventDefault();
                 setDisplayForm(true);
             }}>
-                {keywordChecklist}
+                <div className="checklist">
+                    {keywords.map((keyword, index) => (
+                        <Checkbox
+                            key={keyword.name}
+                            isChecked={keyword.checked}
+                            checkHandler={() => updateCheckStatus(index)}
+                            label={keyword.name}
+                            index={index}
+                        />
+                    ))}
+                </div>
                 <button type='submit'>Submit</button>
             </form>
     
-            {displayForm && <SelectionResults keywords=""/>}
+            {displayForm && <SelectionResults keywords={keywords.filter(keyword => keyword.checked).map(keyword => keyword.name)} />}
         </>
     )
 }

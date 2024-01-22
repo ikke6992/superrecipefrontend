@@ -16,11 +16,8 @@ export default function Home() {
 
         fetchData();
     }, [])
-
-    let index = 0;
-
-    const basicInfo = recipes.map((recipe) => {
-        index++;
+    
+    const basicInfo = recipes.map((recipe, index) => {
         const link = `/recipe/${recipe.name}`;
         return (
             <li key={index}>

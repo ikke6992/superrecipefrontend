@@ -1,29 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function SelectionResults(props) {
 
+    console.log(props.keywords);
+
     const [recipes, setRecipes] = useState([]);
 
+    
     useEffect(() => {
-        const fetchData = async () =>  {
+        if (props.keywords.length !== 0) {
+            const fetchData = async () =>  {
 
-            const getRecipes = await axios.get("http://localhost:8080/api/recipes/");
+                const getRecipes = await axios.get("http://localhost:8080/api/recipes/");
 
-            getRecipes.data.forEach((getRecipe) => {
-                props.keywords.every(keyword => getRecipe.keywords.includes(keyword)) ? setRecipes(...recipes, getRecipe) : '';
-            })
+                getRecipes.data.forEach((getRecipe) => {
+                    console.log(props.keywords.every(keyword => getRecipe.keywords.includes(keyword)))
+                    props.keywords.every(keyword => getRecipe.keywords.includes(keyword)) ? setRecipes([...recipes, getRecipe]) : '';
+                })
+            }
+
+            fetchData();
         }
-
-        fetchData();
     }, [])
 
-    let index = 0;
-
-    const recipeList = recipes.map((recipe) => {
-        index++;
+    const recipeList = recipes.map((recipe, index) => {
+        const link = `/recipe/${recipe.name}`;
         return (
             <li key={index}>
-                {recipe.name} - {recipe.keywords.replaceAll(",", ", ")}
+                <a href={link}>{recipe.name}</a> - {recipe.keywords.replaceAll(",", ", ")}
             </li>
     )});
 
