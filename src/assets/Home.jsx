@@ -1,10 +1,8 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { StateContext } from "./StateContext";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 
-    const {setState} = useContext(StateContext);
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {

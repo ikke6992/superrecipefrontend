@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { StateContext } from "./StateContext";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -7,9 +6,6 @@ export default function Recipe(props) {
 
     const {recipeName} = useParams();
     const [recipe, setRecipe] = useState();
-    const {setState} = useContext(StateContext);
-
-    console.log(recipeName);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,12 +19,9 @@ export default function Recipe(props) {
 
         fetchData();
     }, []);
-    let index=0;
 
     if (recipe) {
-        const ingredients = (recipe.ingredients).map(recipeIngredient => {
-            console.log(recipeIngredient);
-            index++;
+        const ingredients = (recipe.ingredients).map((recipeIngredient, index) => {
             return (
                 <li key={index}>
                     {recipeIngredient.amountInUnits} {recipeIngredient.ingredient.name}

@@ -3,8 +3,6 @@ import axios from "axios";
 
 function SelectionResults(props) {
 
-    console.log(props.keywords);
-
     const [recipes, setRecipes] = useState([]);
 
     
@@ -14,15 +12,14 @@ function SelectionResults(props) {
 
                 const getRecipes = await axios.get("http://localhost:8080/api/recipes/");
 
-                getRecipes.data.forEach((getRecipe) => {
-                    console.log(props.keywords.every(keyword => getRecipe.keywords.includes(keyword)))
-                    props.keywords.every(keyword => getRecipe.keywords.includes(keyword)) ? setRecipes([...recipes, getRecipe]) : '';
-                })
+                setRecipes(getRecipes.data.filter(getRecipe => props.keywords.every(keyword => getRecipe.keywords.includes(keyword))));
             }
 
             fetchData();
+        } else {
+            setRecipes([]);
         }
-    }, [])
+    }, [props.keywords])
 
     const recipeList = recipes.map((recipe, index) => {
         const link = `/recipe/${recipe.name}`;

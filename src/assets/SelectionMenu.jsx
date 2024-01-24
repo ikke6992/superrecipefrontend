@@ -5,7 +5,7 @@ import SelectionResults from "./SelectionResults";
 function SelectionMenu() {
 
     const [keywords, setKeywords] = useState([]);
-    const [displayForm, setDisplayForm] = useState(false);
+    const [trueKeywords, setTrueKeywords] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -46,12 +46,14 @@ function SelectionMenu() {
         )
     }
 
+    const updateCheckedKeywords = (e) => {
+        e.preventDefault();
+        setTrueKeywords(keywords.filter(keyword => keyword.checked).map(keyword => keyword.name));
+    }
+
     return (
         <>
-            <form onSubmit={e => {
-                e.preventDefault();
-                setDisplayForm(true);
-            }}>
+            <form onSubmit={updateCheckedKeywords}>
                 <div className="checklist">
                     {keywords.map((keyword, index) => (
                         <Checkbox
@@ -66,7 +68,7 @@ function SelectionMenu() {
                 <button type='submit'>Submit</button>
             </form>
     
-            {displayForm && <SelectionResults keywords={keywords.filter(keyword => keyword.checked).map(keyword => keyword.name)} />}
+            <SelectionResults keywords={trueKeywords} />
         </>
     )
 }
