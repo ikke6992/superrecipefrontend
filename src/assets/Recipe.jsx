@@ -34,7 +34,7 @@ export default function Recipe(props) {
             <>
                 <a href="/">Home</a>
                 <h2>{recipe.name}</h2>
-                <p>{recipe.keywords.replaceAll(",", " - ")}</p>
+                <p>{recipe.keywords.map(keyword => keyword + " - ")}</p>
                 <br/>
                 <ul>
                     {ingredients}
