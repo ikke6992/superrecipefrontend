@@ -11,6 +11,7 @@ export default function Home() {
         const fetchData = async () => {
 
             const getRecipes = await axios.get("http://localhost:8080/api/recipes/");
+            console.table(getRecipes.data);
             setRecipes(getRecipes.data);
         };
 
@@ -20,6 +21,7 @@ export default function Home() {
     let index = 0;
 
     const basicInfo = recipes.map((recipe) => {
+        console.table(recipe);
         index++;
         return (
             <li key={index}>

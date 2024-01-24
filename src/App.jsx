@@ -57,6 +57,9 @@ export default function App() {
 
   return (
     <>
+    <header>
+      <Login />
+    </header>
       <form onSubmit={e => { e.preventDefault(); fetchDat(); }}>
         <input type="text" onChange={e => { setSearch(e.target.value) }} /> <br />
         <button type="submit">Submit</button>
