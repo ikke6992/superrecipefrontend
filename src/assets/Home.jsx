@@ -17,9 +17,10 @@ export default function Home() {
     
     const basicInfo = recipes.map((recipe, index) => {
         const link = `/recipe/${recipe.name}`;
+        const keywords = recipe.keywords.map(keyword => keyword + ", ");
         return (
             <li key={index}>
-                <a href={link}>{recipe.name}</a> - {recipe.keywords.replaceAll(",", ", ")}
+                <a href={link}>{recipe.name}</a> - {keywords}
             </li>
     )});
 
