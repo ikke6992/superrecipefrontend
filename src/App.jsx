@@ -2,10 +2,12 @@ import { useContext, useState } from "react";
 import "./App.css";
 import { StateContext } from "./assets/StateContext";
 import Home from "./assets/Home";
+import Login from "./assets/Login";
 import Recipe from "./assets/Recipe";
+import SelectionMenu from './assets/SelectionMenu';
+import SelectionResults from "./assets/SelectionResults";
 import axios from "axios";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Login from "./assets/Login";
 
 export default function App() {
   const {state} = useContext(StateContext)
@@ -68,9 +70,11 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/recipe/:recipeName" element={<Recipe />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/selection/:keywords" element={<SelectionResults />} />
           </Routes>
         </BrowserRouter>
       </div>
+      <SelectionMenu />
     </>
 
   )

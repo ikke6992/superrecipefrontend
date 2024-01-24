@@ -1,10 +1,8 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { StateContext } from "./StateContext";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 
-    const {setState} = useContext(StateContext);
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
@@ -16,17 +14,13 @@ export default function Home() {
 
         fetchData();
     }, [])
-
-    let index = 0;
-
-    const basicInfo = recipes.map((recipe) => {
-        index++;
+    
+    const basicInfo = recipes.map((recipe, index) => {
+        const link = `/recipe/${recipe.name}`;
+        const keywords = recipe.keywords.map(keyword => keyword + ", ");
         return (
             <li key={index}>
-                <button onClick={(e) => {
-                    e.preventDefault();
-                    setState(recipe.name);
-                }}>{recipe.name}</button> - {recipe.keywords.join(", ")}
+                <a href={link}>{recipe.name}</a> - {keywords}
             </li>
     )});
 
