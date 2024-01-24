@@ -8,6 +8,7 @@ import SelectionMenu from './assets/SelectionMenu';
 import SelectionResults from "./assets/SelectionResults";
 import axios from "axios";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import Ingredients from "./assets/Ingredients";
 
 export default function App() {
   const {state} = useContext(StateContext)
@@ -70,6 +71,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/recipe/:recipeName" element={<Recipe />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/ingredients" element={<Ingredients />} />
             <Route path="/selection/:keywords" element={<SelectionResults />} />
           </Routes>
         </BrowserRouter>
