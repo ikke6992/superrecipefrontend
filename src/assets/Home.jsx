@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import DisplayRecipeList from "./DisplayRecipeList";
 
 export default function Home() {
 
@@ -14,22 +15,11 @@ export default function Home() {
 
         fetchData();
     }, [])
-    
-    const basicInfo = recipes.map((recipe, index) => {
-        const link = `/recipe/${recipe.name}`;
-        const keywords = recipe.keywords.map(keyword => keyword + ", ");
-        return (
-            <li key={index}>
-                <a href={link}>{recipe.name}</a> - {keywords}
-            </li>
-    )});
 
     return  (
         <>
             <h2>Try these:</h2>
-            <ul>
-                {basicInfo}
-            </ul>
+            <DisplayRecipeList recipes={recipes} />
         </>
     );
 }

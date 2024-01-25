@@ -1,11 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import PostIngredient from "./PostIngredient";
 
 export default function Ingredients() {
 
     const [ingredients, setIngredients] = useState([]);
     const [categories, setCategories] = useState([]);
     const [units, setUnits] = useState([]);
+
+    const [ingredientName, setIngredientName] = useState("");
+    const [category, setCategory] = useState("vegetable");
+    const [unit, setUnit] = useState("Milliliter");
+
+    const [displayForm, setDisplayForm] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,6 +39,7 @@ export default function Ingredients() {
 
     const submitRecipe = (e) => {
         e.preventDefault();
+        setDisplayForm(true);
     }
 
     const categoryOptions = categories.map((category, index) => {
@@ -54,22 +62,31 @@ export default function Ingredients() {
             </ul>
             <form onSubmit={submitRecipe}>
                 <label>
-                    Naam: <input type='text' placeholder='ingredient' />
+                    Naam: <input 
+                        type='text' 
+                        placeholder='ingredient'
+                        value={ingredientName}
+                        onChange={(e) => {setIngredientName(e.target.value)}} />
                 </label><br />
                 <label>
                     Categorie: 
-                    <select>
+                    <select value={category} onChange={(e) => {setCategory(e.target.value)}}>
                         {categoryOptions}
                     </select>
                 </label><br />
                 <label>
                     Unit: 
-                    <select>
+                    <select value={unit} onChange={(e) => {setUnit(e.target.value)}}>
                         {unitOptions}
                     </select>
                 </label><br />
                 <button type='submit'>Submit</button>
             </form>
+            {displayForm && <PostIngredient
+                ingredientName={ingredientName}
+                category={category}
+                unit={unit}
+                />}
         </>
     );
 }
