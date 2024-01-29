@@ -6,6 +6,7 @@ import Recipe from "./assets/Recipe";
 import axios from "axios";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Login from "./assets/Login";
+import Navbar from "./components/Navbar";
 
 export default function App() {
   const {state} = useContext(StateContext)
@@ -57,6 +58,7 @@ export default function App() {
 
   return (
     <>
+    
     <header>
       <Login />
     </header>
