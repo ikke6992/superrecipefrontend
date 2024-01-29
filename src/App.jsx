@@ -8,6 +8,8 @@ import SelectionMenu from './assets/SelectionMenu';
 import SelectionResults from "./assets/SelectionResults";
 import axios from "axios";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import Login from "./assets/Login";
+import Navbar from "./components/Navbar";
 
 export default function App() {
   const {state} = useContext(StateContext)
@@ -59,6 +61,10 @@ export default function App() {
 
   return (
     <>
+    
+    <header>
+      <Login />
+    </header>
       <form onSubmit={e => { e.preventDefault(); fetchDat(); }}>
         <input type="text" onChange={e => { setSearch(e.target.value) }} /> <br />
         <button type="submit">Submit</button>
