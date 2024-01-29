@@ -1,25 +1,27 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import "./App.css";
-import { StateContext } from "./assets/StateContext";
 import Home from "./assets/Home";
 import Login from "./assets/Login";
 import Recipe from "./assets/Recipe";
 import SelectionMenu from './assets/SelectionMenu';
 import SelectionResults from "./assets/SelectionResults";
 import axios from "axios";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Login from "./assets/Login";
-import Navbar from "./components/Navbar";
+import {BrowserRouter, Routes, Route, useHref} from "react-router-dom";
+import Ingredients from "./assets/Ingredients";
+import DisplayRecipeList from "./assets/DisplayRecipeList";
+//import Navbar from "./components/Navbar";
 
 export default function App() {
-  const {state} = useContext(StateContext)
   const [search, setSearch] = useState('');
+  const [recipes, setRecipes] = useState([]);
+  const [displayForm, setDisplayForm] = useState(false);
+
   const fetchDat = async () => {
     const res = await
-      axios.get("http://localhost:8080/api/recipes/search");
-    console.log(res.data.sort((a, b) => {
-      const distanceA = levenshteinDistance(a, search);
-      const distanceB = levenshteinDistance(b, search);
+      axios.get("http://localhost:8080/api/recipes/");
+    setRecipes(res.data.sort((a, b) => {
+      const distanceA = levenshteinDistance(a.name, search);
+      const distanceB = levenshteinDistance(b.name, search);
       return distanceA - distanceB;
     }));
   }
@@ -61,11 +63,12 @@ export default function App() {
 
   return (
     <>
+      
     
     <header>
       <Login />
     </header>
-      <form onSubmit={e => { e.preventDefault(); fetchDat(); }}>
+      <form onSubmit={e => { e.preventDefault(); fetchDat(); setDisplayForm(true)}}>
         <input type="text" onChange={e => { setSearch(e.target.value) }} /> <br />
         <button type="submit">Submit</button>
       </form>
@@ -74,12 +77,15 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/search" element={<DisplayRecipeList recipes={recipes} />} />
             <Route path="/recipe/:recipeName" element={<Recipe />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/ingredients" element={<Ingredients />} />
             <Route path="/selection/:keywords" element={<SelectionResults />} />
           </Routes>
         </BrowserRouter>
       </div>
+      {displayForm && <DisplayRecipeList recipes={recipes} />}
       <SelectionMenu />
     </>
 
