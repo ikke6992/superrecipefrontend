@@ -7,8 +7,12 @@ export default function Login() {
     async function handleSubmit(e) {
         e.preventDefault();
         let jsonObject = Object.fromEntries(new FormData(e.target).entries()); 
+        console.table(jsonObject);
         let result = await axios.post("http://localhost:8080/api/user/login", jsonObject);
+        console.log("this is the result" + result.data);
         cookies.set("Api-Login", result.data.token);
+        console.log("submit called")
+        console.table(jsonObject);
         location.assign("/");
     }
     return (<div id="context-login-wrapper">

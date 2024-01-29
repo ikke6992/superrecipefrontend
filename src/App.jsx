@@ -9,6 +9,7 @@ import axios from "axios";
 import {BrowserRouter, Routes, Route, useHref} from "react-router-dom";
 import Ingredients from "./assets/Ingredients";
 import DisplayRecipeList from "./assets/DisplayRecipeList";
+//import Navbar from "./components/Navbar";
 
 export default function App() {
   const [search, setSearch] = useState('');
@@ -62,6 +63,11 @@ export default function App() {
 
   return (
     <>
+      
+    
+    <header>
+      <Login />
+    </header>
       <form onSubmit={e => { e.preventDefault(); fetchDat(); setDisplayForm(true)}}>
         <input type="text" onChange={e => { setSearch(e.target.value) }} /> <br />
         <button type="submit">Submit</button>
