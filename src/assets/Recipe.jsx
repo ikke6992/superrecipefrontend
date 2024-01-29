@@ -34,8 +34,9 @@ export default function Recipe(props) {
             <>
                 <a href="/">Home</a>
                 <h2>{recipe.name}</h2>
+                <input type='checkbox'/>
                 <img className="recipe-image" src={`data:image/jpeg;base64,${recipe.image}`} />
-                <p>{recipe.keywords.map(keyword => keyword + " - ")}</p>
+                <p>{recipe.keywords.join(" - ")}</p>
                 <br/>
                 <ul>
                     {ingredients}

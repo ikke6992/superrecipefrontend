@@ -66,7 +66,8 @@ export default function Ingredients() {
                         type='text' 
                         placeholder='ingredient'
                         value={ingredientName}
-                        onChange={(e) => {setIngredientName(e.target.value)}} />
+                        onChange={(e) => {setIngredientName(e.target.value)}}
+                    />
                 </label><br />
                 <label>
                     Categorie: 
